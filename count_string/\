@@ -1,0 +1,54 @@
+
+#include <stdio.h>
+
+typedef enum {
+	Init_state=1,
+	Work_state,
+	Spac_state,	
+};
+
+
+int count_strings(char *ptr)
+{
+	int count = 0;
+	int state = Init_state;
+	char value;
+	
+	while(value = *ptr++)
+	{
+		switch(state){
+			case Init_state :
+				if(' ' != value){
+			        count++; state=Work_state;
+				} else{
+				state=Spac_state;
+				}
+				break;
+					
+			case Work_state :
+				if(' ' == value) state=Spac_state;
+				else if('\0' == value) return count;
+				break;
+			case Spac_state : 
+				if(' ' != value) state=Work_state;
+				else if('\0' == value) return count;
+				break;	
+		}
+
+
+	}
+
+
+
+
+} 
+
+
+int main(int argc,char **argv)
+{
+
+	printf("the count of string is %d\r\n",count_strings("asd"));	
+	printf("the count of string is %d\r\n",count_strings("asdi asdsaf asfd"));
+
+	return 0;
+}
